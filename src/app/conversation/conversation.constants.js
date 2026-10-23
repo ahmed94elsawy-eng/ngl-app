@@ -1,0 +1,2 @@
+export const CONVERSATION_CONTENT_MIN = 1;
+export const CONVERSATION_CONTENT_MAX = 1000;
