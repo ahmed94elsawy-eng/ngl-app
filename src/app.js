@@ -6,10 +6,22 @@ import { router } from './route.js';
 import { correlationId } from './lib/correlation/correlationid.js';
 import { securityMiddleware } from './lib/http/security.js';
 import { env } from './lib/config/env.js';
+import morgan from 'morgan';
 
 export function createApp(){
 
    const app = express();
+
+   app.use(
+  morgan((tokens, req, res) =>
+    [
+      tokens.method(req, res),
+      req.path,
+      tokens.status(req, res),
+      `${tokens['response-time'](req, res)} ms`,
+    ].join(' ')
+  )
+);
 
 // behind a reverse proxy / load balancer req.ip would be the proxy's IP (every user would share one rate limit)
 if (env.trustProxyHops > 0) app.set('trust proxy', env.trustProxyHops);
@@ -27,6 +39,7 @@ app.use('/uploads/profile', express.static(path.resolve(uploadsRoot, 'profile'),
 app.use('/uploads/covers', express.static(path.resolve(uploadsRoot, 'covers'), publicImageOptions));
 // parse incoming requests buffer to object
 app.use(express.json());
+
 
 // parsing cookies
 app.use(cookieParser());

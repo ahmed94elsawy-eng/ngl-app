@@ -3,8 +3,11 @@
   "scripts": {
     "dev": "node --watch .",
     "start": "node src/server.js",
-    "start:prod": "node --env-file=.env.production src/server.js",
+    "start:prod": "pm2 start ./src/server.js --name ngl-app-prod --node-args=\"--env-file=.env.production\"",
     "test": "node --test"
+  },
+  "engines": {
+    "node": "24.22.1"
   },
   "type": "module",
   "dependencies": {
@@ -19,6 +22,7 @@
     "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.1",
+    "morgan": "^1.12.1",
     "multer": "^2.4.0",
     "node-mailjet": "^6.0.11",
     "zod": "^4.6.5"
