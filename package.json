@@ -26,5 +26,8 @@
     "multer": "^2.4.0",
     "node-mailjet": "^6.0.11",
     "zod": "^4.6.5"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
   }
 }
